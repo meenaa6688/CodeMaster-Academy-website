@@ -96,8 +96,19 @@ function Header({ onHomeClick, onCoursesClick }) {
 
       </nav>
 
-      <button className="header-button">
-        Enquire Now
+      <button className="header-button"
+        onClick={() => {
+          onHomeClick();
+          setTimeout(() => {
+            document
+              .getElementById("enquiry")
+              ?.scrollIntoView({
+                behavior: "smooth",
+              });
+          }, 0);
+        }}
+        >
+          Enquire Now
       </button>
 
     </header>

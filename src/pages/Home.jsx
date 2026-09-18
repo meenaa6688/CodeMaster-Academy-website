@@ -10,12 +10,15 @@ import Hero from "../components/Hero";
 import CourseCard from "../components/CourseCard";
 import TrainerCard from "../components/TrainerCard";
 import BatchCard from "../components/BatchCard";
+import EnquiryForm from "../components/EnquiryForm";
 
 function Home() {
 
   const [selectedCourse, setSelectedCourse] =
     useState(null);
   const [selectedTrainer, setSelectedTrainer] =
+    useState(null);
+  const [selectedBatch, setSelectedBatch] = 
     useState(null);
   return (
     <main>
@@ -125,21 +128,38 @@ function Home() {
 
           {batches.map((batch) => (
 
-            <BatchCard
-              key={batch.id}
-              batch={batch}
-              onEnquire={() => {
-                alert(
-                  `You selected the ${batch.course} batch.\n\nTrainer: ${batch.trainer}\nDate: ${batch.startDate}\nTime: ${batch.timing}\nMode: ${batch.mode}`
-                     );
-              }}
-            />
+            // <BatchCard
+            //   key={batch.id}
+            //   batch={batch}
+            //   onEnquire={() => {
+            //     alert(
+            //       `You selected the ${batch.course} batch.\n\nTrainer: ${batch.trainer}\nDate: ${batch.startDate}\nTime: ${batch.timing}\nMode: ${batch.mode}`
+            //          );
+            //   }}
+            // />
+               <BatchCard
+                   key={batch.id}
+                   batch={batch}
+                   onEnquire={() => {
+                     setSelectedBatch(batch);
+
+                      setTimeout(() => {
+                        document
+                        .getElementById("enquiry")
+                        ?.scrollIntoView({
+                        behavior: "smooth",
+                  });
+                }, 0);
+            }}
+/>
 
           ))}
 
         </div>
 
       </section>
+
+      <EnquiryForm  selectedBatch={selectedBatch}/>  
 
 
       {/* COURSE DETAILS POPUP */}
