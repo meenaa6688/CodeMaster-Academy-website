@@ -120,15 +120,80 @@
 // }
 
 // export default App
+// import Header from "./components/Header";
+// import Home from "./pages/Home";
+// import Courses from "./pages/courses";
+// import Footer from "./components/Footer";
+
+// function App() {
+//   return (
+//     <>
+//       <Header />
+//       <Home />
+//       <Courses />
+//       <Footer />
+//     </>
+//   );
+// }
+
+// export default App;
+
+import { useState } from "react";
+
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import Courses from "./pages/courses";
+import CourseDetails from "./pages/CourseDetails";
 import Footer from "./components/Footer";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState("home");
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
+  const handleViewCourses = () => {
+    setCurrentPage("courses");
+    setSelectedCourse(null);
+  };
+
+  const handleViewCourseDetails = (course) => {
+    setSelectedCourse(course);
+    setCurrentPage("course-details");
+  };
+
+  const handleBackToCourses = () => {
+    setSelectedCourse(null);
+    setCurrentPage("courses");
+  };
+
+  const handleGoHome = () => {
+    setSelectedCourse(null);
+    setCurrentPage("home");
+  };
+
   return (
     <>
-      <Header />
-      <Home />
+      <Header
+        onHomeClick={handleGoHome}
+        onCoursesClick={handleViewCourses}
+      />
+
+      {currentPage === "home" && (
+        <Home />
+      )}
+
+      {currentPage === "courses" && (
+        <Courses
+          onViewDetails={handleViewCourseDetails}
+        />
+      )}
+
+      {currentPage === "course-details" && selectedCourse && (
+        <CourseDetails
+          course={selectedCourse}
+          onBack={handleBackToCourses}
+        />
+      )}
+
       <Footer />
     </>
   );

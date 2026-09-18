@@ -211,7 +211,17 @@ function Home() {
 
               </div>
 
-              <button className="primary-button">
+              {/* <button className="primary-button">
+                Enquire For This Course
+              </button> */}
+
+              <button className="primary-button"
+                       onClick={() =>
+                          alert(
+                              `Thank you for your interest in ${selectedCourse.name}!\n\nOur team will contact you soon regarding this course.`
+                             )
+                          }
+              >
                 Enquire For This Course
               </button>
 
