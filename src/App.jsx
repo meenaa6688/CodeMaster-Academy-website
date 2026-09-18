@@ -144,6 +144,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Courses from "./pages/courses";
 import CourseDetails from "./pages/CourseDetails";
+import TrainerCard from "./components/TrainerCard";
 import Footer from "./components/Footer";
 
 function App() {
@@ -168,6 +169,12 @@ function App() {
   const handleGoHome = () => {
     setSelectedCourse(null);
     setCurrentPage("home");
+
+    window.scrollTo({
+
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (

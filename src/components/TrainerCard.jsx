@@ -1,4 +1,4 @@
-function TrainerCard({ trainer }) {
+function TrainerCard({ trainer ,onViewDetails}) {
   return (
     <div className="trainer-card">
 
@@ -15,13 +15,19 @@ function TrainerCard({ trainer }) {
           {trainer.designation}
         </p>
 
-        <p>
+        {/* <p>
           {trainer.experience}
         </p>
 
         <span>
           {trainer.specialization}
-        </span>
+        </span> */}
+        <button
+          className="primary-button trainer-button"
+          onClick={() => onViewDetails(trainer)}
+        >
+          View Profile
+         </button>
 
       </div>
 

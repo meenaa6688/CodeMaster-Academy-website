@@ -15,7 +15,8 @@ function Home() {
 
   const [selectedCourse, setSelectedCourse] =
     useState(null);
-
+  const [selectedTrainer, setSelectedTrainer] =
+    useState(null);
   return (
     <main>
 
@@ -89,6 +90,7 @@ function Home() {
             <TrainerCard
               key={trainer.id}
               trainer={trainer}
+              onViewDetails={setSelectedTrainer}
             />
 
           ))}
@@ -232,6 +234,76 @@ function Home() {
         </div>
 
       )}
+
+      {/* TRAINER DETAILS POPUP */}
+
+{selectedTrainer && (
+
+  <div
+    className="modal-overlay"
+    onClick={() => setSelectedTrainer(null)}
+  >
+
+    <div
+      className="modal"
+      onClick={(event) =>
+        event.stopPropagation()
+      }
+    >
+
+      <button
+        className="close-button"
+        onClick={() =>
+          setSelectedTrainer(null)
+        }
+      >
+        ✕
+      </button>
+
+      <img
+        src={selectedTrainer.image}
+        alt={selectedTrainer.name}
+      />
+
+      <div className="modal-body">
+
+        <span>
+          Trainer
+        </span>
+
+        <h2>
+          {selectedTrainer.name}
+        </h2>
+
+        <p>
+          {selectedTrainer.designation}
+        </p>
+
+        <p>
+          {selectedTrainer.experience}
+        </p>
+
+        <p>
+          Specialization: {selectedTrainer.specialization}
+        </p>
+
+        <button
+          className="primary-button"
+          onClick={() =>
+            setSelectedTrainer(null)
+          }
+        >
+          Close
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+)}
+
 
     </main>
   );
