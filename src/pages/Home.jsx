@@ -128,6 +128,11 @@ function Home() {
             <BatchCard
               key={batch.id}
               batch={batch}
+              onEnquire={() => {
+                alert(
+                  `You selected the ${batch.course} batch.\n\nTrainer: ${batch.trainer}\nDate: ${batch.startDate}\nTime: ${batch.timing}\nMode: ${batch.mode}`
+                     );
+              }}
             />
 
           ))}

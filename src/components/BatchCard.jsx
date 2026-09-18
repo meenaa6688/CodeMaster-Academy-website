@@ -1,4 +1,4 @@
-function BatchCard({ batch }) {
+function BatchCard({ batch, onEnquire}) {
   return (
     <div className="batch-card">
 
@@ -26,10 +26,14 @@ function BatchCard({ batch }) {
         <span>
           {batch.seats} seats available
         </span>
-
-        <button>
+        <button
+          onClick={() => onEnquire(batch)}
+        >
           Enquire
+
         </button>
+
+        
       </div>
 
     </div>
