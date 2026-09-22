@@ -1,10 +1,14 @@
 import { useState } from "react";
 
-import {
-  courses,
-  trainers,
-  batches
-} from "../data/mockData";
+// import {
+//   courses,
+//   trainers,
+//   batches
+// } from "../data/mockData";
+
+import { courses } from "../data/courses";
+import { trainers } from "../data/trainers";
+import { batches } from "../data/batches";
 
 import Hero from "../components/Hero";
 import CourseCard from "../components/CourseCard";

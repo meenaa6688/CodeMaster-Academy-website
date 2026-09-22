@@ -78,7 +78,7 @@
 
 
 import { useState } from "react";
-import { courses } from "../data/mockData";
+import { courses } from "../data/courses";
 import CourseCard from "../components/CourseCard";
 
 function Courses({ onViewDetails }) {
