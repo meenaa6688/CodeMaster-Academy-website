@@ -77,18 +77,52 @@
 // export default Courses;
 
 
-import { useState } from "react";
-import { courses } from "../data/courses";
+import { useState , useEffect } from "react";
+//import { courses } from "../data/courses";
 import CourseCard from "../components/CourseCard";
+import { api } from "../services/api";
 
 function Courses({ onViewDetails }) {
+
+  const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+//Get courses from backend API
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const data = await api.getCourses();
+        setCourses(data);
+       }catch(error) {
+        setError("Failed to load courses");
+       } finally {
+        setLoading(false);
+       }
+    };
+    fetchCourses();
 
+  }, []);
+
+ 
+  // if(loading){
+  //   return <p>Loading  Courses....</p>
+  // }
+  // if (error) {
+  //   return <p>{error}</p>;
+  // }
+
+  
+  
+ // get categories from API data
+  
   const categories = [
     "All",
     ...new Set(courses.map((course) => course.category)),
   ];
+
+  // Search and category filtering
 
   const filteredCourses = courses.filter((course) => {
     const matchesSearch = course.name
@@ -101,6 +135,27 @@ function Courses({ onViewDetails }) {
 
     return matchesSearch && matchesCategory;
   });
+
+   // Loading
+  if (loading) {
+    return (
+      <section className="courses-page">
+        <h2>Courses</h2>
+        <p>Loading courses...</p>
+      </section>
+    );
+  }
+
+  // Error
+  if (error) {
+    return (
+      <section className="courses-page">
+        <h2>Courses</h2>
+        <p>{error}</p>
+      </section>
+    );
+  }
+
 
   return (
     <main className="courses-page">
