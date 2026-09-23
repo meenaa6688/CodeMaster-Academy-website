@@ -89,6 +89,7 @@ function Courses({ onViewDetails }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  
 //Get courses from backend API
   useEffect(() => {
     const fetchCourses = async () => {

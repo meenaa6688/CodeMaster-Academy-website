@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // import {
 //   courses,
@@ -8,7 +8,9 @@ import { useState } from "react";
 
 import { courses } from "../data/courses";
 import { trainers } from "../data/trainers";
-import { batches } from "../data/batches";
+// import { batches } from "../data/batches";
+
+import { api } from "../services/api";
 
 import Hero from "../components/Hero";
 import CourseCard from "../components/CourseCard";
@@ -24,6 +26,27 @@ function Home() {
     useState(null);
   const [selectedBatch, setSelectedBatch] = 
     useState(null);
+
+  const [ batches, setBatches] = useState([]);
+  const [loadingBatches, setLoadingBatches] = useState(true);
+  const [batchError, setBatchError] = useState("");
+
+  useEffect(() => {
+    const fetchBatches = async () => {
+      try {
+        const data = await api.getBatches();
+        setBatches(data);
+      } catch (error) {
+        console.error(" Error fetching batches:" , error);
+        setBatchError("Failed to load upcoming batches");
+      } finally {
+        setLoadingBatches(false);
+      }
+    };
+    fetchBatches();
+  }, []);
+
+
   return (
     <main>
 
@@ -128,20 +151,15 @@ function Home() {
 
         </div>
 
-        <div className="batches-grid">
+        {/* new code*/}
+        {loadingBatches && (
+          <p>Loading upcoming batches...</p>
+        )}
 
-          {batches.map((batch) => (
-
-            // <BatchCard
-            //   key={batch.id}
-            //   batch={batch}
-            //   onEnquire={() => {
-            //     alert(
-            //       `You selected the ${batch.course} batch.\n\nTrainer: ${batch.trainer}\nDate: ${batch.startDate}\nTime: ${batch.timing}\nMode: ${batch.mode}`
-            //          );
-            //   }}
-            // />
-               <BatchCard
+        {!loadingBatches && !batchError && (
+          <div className="batches-grid">
+            {batches.map((batch) => (
+              <BatchCard
                    key={batch.id}
                    batch={batch}
                    onEnquire={() => {
@@ -154,14 +172,32 @@ function Home() {
                         behavior: "smooth",
                   });
                 }, 0);
-            }}
-/>
+               }}
+             />
+              ))}
+              </div>
+        )}
+              </section>
 
-          ))}
+        
 
-        </div>
+        
 
-      </section>
+          
+
+            {/* // <BatchCard
+            //   key={batch.id}
+            //   batch={batch}
+            //   onEnquire={() => {
+            //     alert(
+            //       `You selected the ${batch.course} batch.\n\nTrainer: ${batch.trainer}\nDate: ${batch.startDate}\nTime: ${batch.timing}\nMode: ${batch.mode}`
+            //          );
+            //   }}
+            // /> */}
+               
+
+
+      
 
       <EnquiryForm  selectedBatch={selectedBatch}/>  
 
